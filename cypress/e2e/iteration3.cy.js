@@ -6,6 +6,7 @@ describe("iteration 3 USERFLOWS", () => {
     cy.visit("http://localhost:3000/");
   });
   it("Should visit the page, so they can view the page title and the existing shortened URLs", () => {
+    cy.get("h1").contains("URL Shortener");
     cy.get("h3").contains("Awesome photo");
     cy.get("a").contains("http://localhost:3001/useshorturl/1");
     cy.get("p").contains(
