@@ -16,7 +16,15 @@ class UrlForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.addNewUrl(this.state);
+    if (this.state.title && this.state.urlToShorten) {
+      this.setState({ errorMessage: "" });
+      this.props.addNewUrl(this.state);
+    } else {
+      this.setState({
+        errorMessage: "Please fill out both input fields before submitting",
+      });
+    }
+    
     this.clearInputs();
   }
 
@@ -26,25 +34,28 @@ class UrlForm extends Component {
 
   render() {
     return (
-      <form>
-        <input
-          type="text"
-          placeholder="Title..."
-          name="title"
-          value={this.state.title}
-          onChange={(e) => this.handleNameChange(e)}
-        />
+      <div>
+        {this.state.errorMessage && <h1 className='error-message'>{this.state.errorMessage}</h1>}
+        <form>
+          <input
+            type="text"
+            placeholder="Title..."
+            name="title"
+            value={this.state.title}
+            onChange={(e) => this.handleNameChange(e)}
+          />
 
-        <input
-          type="text"
-          placeholder="URL to Shorten..."
-          name="urlToShorten"
-          value={this.state.urlToShorten}
-          onChange={(e) => this.handleNameChange(e)}
-        />
+          <input
+            type="text"
+            placeholder="URL to Shorten..."
+            name="urlToShorten"
+            value={this.state.urlToShorten}
+            onChange={(e) => this.handleNameChange(e)}
+          />
 
-        <button onClick={(e) => this.handleSubmit(e)}>Shorten Please!</button>
-      </form>
+          <button onClick={(e) => this.handleSubmit(e)}>Shorten Please!</button>
+        </form>
+      </div>
     );
   }
 }
